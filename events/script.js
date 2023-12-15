@@ -29,19 +29,34 @@ for (let actionSquare of actionSquares) {
 
 const body = document.querySelector('body')
 body.addEventListener("keydown", (e) => {
-  if (e.key === ' ') {
-    let h = (Math.floor(Math.random()*(360))); 
-    let s = (Math.floor(Math.random()*(100)));
-    let l = (Math.floor(Math.random()*(100)));
-    let color = ("hsl(" + h + ", " + s + "%, " + l + "%)");
-    body.style.backgroundColor = color;
-    console.log(color);
-  }
-});
-
-body.addEventListener("keydown", (e) => {
-  if (e.key === 'l') {
-    let ul = document.querySelector('ul')
-    ul.innerHTML = '';
+  switch (e.key) {
+    case ' ':
+      let h = (Math.floor(Math.random()*(360))); 
+      let s = (Math.floor(Math.random()*(100)));
+      let l = (Math.floor(Math.random()*(100)));
+      let color = ("hsl(" + h + ", " + s + "%, " + l + "%)");
+      body.style.backgroundColor = color;
+      console.log(color);
+      break;
+    case 'l':
+      let ul = document.querySelector('ul')
+      ul.innerHTML = '';
+      break;
+    case 's':
+      let displayedWrapper = document.querySelector('.displayedsquare-wrapper')
+      displayedWrapper.innerHTML = '';
+      break;
+    default :
+      break;
   } 
 });
+
+const clickOnDisplayerSquare = (e) => {
+  let classColor = e.target.classList[1];
+  alert("this square is " + classColor);
+};
+
+const actionDisplayedSquares = document.querySelectorAll('.displayedsquare-wrapper');
+for (let actionDisplayedSquare of actionDisplayedSquares) {
+  actionDisplayedSquare.addEventListener('click', clickOnDisplayerSquare)
+}
