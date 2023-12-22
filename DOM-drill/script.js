@@ -47,24 +47,63 @@ function sortListRandomly() {
     ul.prepend(fastAndFuriousElement);
 }
 
+let important = document.querySelector('.important');
 function getCloned() {
-    let important = document.querySelector('.important');
-    let cloned = important.cloneNode(false);
-    important.insertBefore(cloned);
+    let cloned = important.cloneNode(true);
+    cloned.classList.remove("important");
+    important.parentNode.insertBefore(cloned, important);
 }
 
 body.addEventListener("keyup", (e) => {
-
     switch (e.key) {
         case 'r':
             newArray = [];
             sortListRandomly();
             break;
         case 'd':
-            getCloned()
+            getCloned();
             break;
-
         default:
             break;
     }
 });
+
+let div = document.createElement('div');
+let select = document.createElement('select');
+
+let optionImportant = document.createElement('option');
+optionImportant.setAttribute('value', "important");
+optionImportant.appendChild(document.createTextNode("important franchises"));
+
+let optionNormal = document.createElement('option');
+optionNormal.setAttribute('value', "normal");
+optionNormal.appendChild(document.createTextNode("normal franchises"));
+
+body.insertBefore(div, ul);
+div.appendChild(select);
+select.appendChild(optionImportant);
+select.appendChild(optionNormal);
+
+function filter() {
+    let lis = document.querySelectorAll('li');
+    
+    switch (select.value) {
+        case "important":
+            lis.forEach(element => {
+                if (!element.classList.contains('important')) {
+                    element.style.display = "none";
+                } else {
+                    element.style.display = "";
+                }
+            });
+            break;
+        case "normal":
+            lis.forEach(element => {
+                element.style.display = "block";
+            });
+            break;
+        default:
+            break;
+    }
+}
+filter()
