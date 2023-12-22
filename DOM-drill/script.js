@@ -85,25 +85,21 @@ select.appendChild(optionImportant);
 select.appendChild(optionNormal);
 
 function filter() {
-    let lis = document.querySelectorAll('li');
     
-    switch (select.value) {
-        case "important":
-            lis.forEach(element => {
-                if (!element.classList.contains('important')) {
-                    element.style.display = "none";
-                } else {
-                    element.style.display = "";
-                }
-            });
-            break;
-        case "normal":
-            lis.forEach(element => {
-                element.style.display = "block";
-            });
-            break;
-        default:
-            break;
-    }
 }
-filter()
+
+
+
+let elementList = document.querySelector('ul');
+select.addEventListener('change', function() {
+    let selectedOption = document.querySelector('select').value;
+    let theMovie = document.querySelector('li.important');
+
+    if (selectedOption === "important") {
+        document.querySelectorAll('li').forEach(element => {
+            element.style.display = "none";
+        });
+        theMovie.style.display = "block";
+    }
+});
+
